@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gemini Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header: brand, tabs, actions -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">✦</span>
+        <div>
+          <h1>AI Chatbot</h1>
+          <small>Powered by Gemini · {{ model }}</small>
+        </div>
+      </div>
+
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="chat" role="tab">Chat</button>
+        <button class="tab" data-tab="insights" role="tab">Insights</button>
+        <button class="tab" data-tab="history" role="tab">History</button>
+      </nav>
+
+      <div class="actions">
+        <button class="btn ghost" id="modelsBtn" title="List available models">Models</button>
+        <button class="btn ghost" id="resetBtn" title="Start a new conversation">New chat</button>
+        <button class="btn icon" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+      </div>
+    </header>
+
+    <!-- CHAT -->
+    <main class="panel active" id="tab-chat">
+      <div class="messages" id="messages">
+        <div class="empty" id="empty">
+          <div class="logo big">✦</div>
+          <h2>How can I help you today?</h2>
+          <p>Try one of these to get started:</p>
+          <div class="chips">
+            <button class="chip">Explain photosynthesis simply</button>
+            <button class="chip">What is a Python list?</button>
+            <button class="chip">Give me 3 study tips</button>
+          </div>
+        </div>
+      </div>
+
+      <form class="composer" id="composer">
+        <textarea id="input" rows="1" placeholder="Type your question… (Enter to send, Shift+Enter for new line)" autofocus></textarea>
+        <button class="btn primary" id="sendBtn" type="submit">Send</button>
+      </form>
+    </main>
+
+    <!-- INSIGHTS -->
+    <section class="panel" id="tab-insights">
+      <div class="scroll">
+        <div class="cards" id="statCards"></div>
+        <div class="row">
+          <h2>Charts</h2>
+          <button class="btn primary" id="chartsBtn">Generate charts</button>
+        </div>
+        <div class="chart-grid" id="chartGrid">
+          <p class="muted">Click “Generate charts” to visualise your chat history.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="panel" id="tab-history">
+      <div class="scroll">
+        <h2>Last 50 chats</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Time</th><th>Question</th><th>Answer</th><th>Sec</th></tr></thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Models dialog -->
+  <dialog id="modelsDialog">
+    <h3>Available Gemini models</h3>
+    <ul id="modelsList"><li>Loading…</li></ul>
+    <button class="btn primary" id="closeModels">Close</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
